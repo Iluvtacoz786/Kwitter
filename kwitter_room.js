@@ -10,8 +10,14 @@ var firebaseConfig = {
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-function getData() {firebase.database().ref("/").on('value', function(snapshot) {document.getElementById("output").innerHTML = "";snapshot.forEach(function(childSnapshot) {childKey  = childSnapshot.key;
+    Username=localStorage.getItem("Username");
+    document.getElementById("display_user").innerHTML=Username;
+
+    function getData() {firebase.database().ref("/").on('value', function(snapshot) {document.getElementById("output").innerHTML = "";snapshot.forEach(function(childSnapshot) {childKey  = childSnapshot.key;
        Room_names = childKey;
+       console.log(Room_names);
+       row="<div id='"+Room_names+"'onclick='redirect_room_name(this.id)'class='room_name'>"+Room_names+"</div><hr>";
+       document.getElementById("output").innerHTML+= row;
       //Start code
 
       //End code
@@ -19,5 +25,16 @@ function getData() {firebase.database().ref("/").on('value', function(snapshot) 
 getData();
 function logoout(){
       window.location="index.html";
-      localStorage.removeItem("Username");
+      localStorage.removeItem("");
+}
+function addRoom(){
+      room_name=document.getElementById("room_input").value;
+      firebase.database().ref("/").child(room_name).update({purpose:"addRoomName"});
+      localStorage.setItem("room_name",  room_name);
+}
+function redirect_room_name(name){
+      console.log("The room name you clicked is="+name);
+      localStorage.setItem("room_name",  name);
+      window.location="index.html";
+
 }
