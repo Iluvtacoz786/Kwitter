@@ -23,9 +23,11 @@ var firebaseConfig = {
       //End code
       });});}
 getData();
-function logoout(){
+function logout(){
       window.location="index.html";
-      localStorage.removeItem("");
+      localStorage.removeItem("username");
+      localStorage.removeItem("room_name");
+
 }
 function addRoom(){
       room_name=document.getElementById("room_input").value;
@@ -35,6 +37,6 @@ function addRoom(){
 function redirect_room_name(name){
       console.log("The room name you clicked is="+name);
       localStorage.setItem("room_name",  name);
-      window.location="index.html";
+      window.location="kwitter_page.html";
 
 }
